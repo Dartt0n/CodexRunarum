@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "an infinitely variable magic system for computer games powered by cellular automata"
 authors = ["Anton Kudryavtsev <antonkudryavtsevdoem@gmail.com>"]
 license = "MIT"
-readme = "README.md"
+readme = "readme.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"

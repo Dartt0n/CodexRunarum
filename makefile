@@ -9,3 +9,7 @@ format:
 .PHONY: check
 check:
 	poetry run ruff check
+
+.PHONY: run
+run:
+    poetry run python3 -m codexrunarum
