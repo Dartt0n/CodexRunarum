@@ -12,4 +12,4 @@ check:
 
 .PHONY: run
 run:
-    poetry run python3 -m codexrunarum
+	poetry run python3 -m codexrunarum
