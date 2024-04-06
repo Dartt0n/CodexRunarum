@@ -1,4 +1,5 @@
-from . import fluid, solid, spread
-from .fluid import Water
-from .solid import Rock
-from .spread import Fire
+from codexrunarum.core.elements import fluid, solid, spread
+from codexrunarum.core.elements.fluid import Water
+from codexrunarum.core.elements.solid import Rock
+from codexrunarum.core.elements.spread import Fire
+from codexrunarum.core.elements.void import Void

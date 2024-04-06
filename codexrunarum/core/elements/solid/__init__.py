@@ -1,2 +1,2 @@
-from .base import BaseSolid
-from .rock import Rock
+from codexrunarum.core.elements.solid.base import BaseSolid
+from codexrunarum.core.elements.solid.rock import Rock
