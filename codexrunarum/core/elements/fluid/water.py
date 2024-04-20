@@ -3,7 +3,7 @@ from codexrunarum.core.elements.fluid.base import BaseFluid
 
 class Water(BaseFluid):
     __id__ = 0
-    __density__ = 5.0
+    __density__ = 0.99
 
     @property
     def density(self) -> float:
