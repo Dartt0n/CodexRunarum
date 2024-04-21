@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
 import numpy as np
-from icecream import ic
 
 from codexrunarum.core.elements.base import BaseElement
 
