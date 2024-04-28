@@ -7,19 +7,13 @@ from termcolor import colored
 
 
 class BaseElement(ABC):
-    _energy: float
-    _velocity: np.ndarray[np.float32]
-    _path: np.ndarray[np.int8]
-
-    def __init__(self, energy: float, velocity: np.ndarray[np.float32]):
-        self._energy = energy
-        self._velocity = velocity
-        self._path = self.compute_path(self.velocity)
-
-    def compute_path(self, velocity: np.ndarray[np.float32]) -> np.ndarray[np.int8]:
+    @classmethod
+    def compute_path(
+        cls, movement_vector: np.ndarray[np.float32]
+    ) -> np.ndarray[np.int8]:
         path = []
         current_point = np.array((0.0, 0.0))
-        delta = velocity - current_point
+        delta = movement_vector - current_point
 
         n = int(np.max(np.abs(delta)))
         dt = n
@@ -32,25 +26,26 @@ class BaseElement(ABC):
 
         return np.array(path, dtype=np.int8)
 
-    @staticmethod
-    @abstractmethod
-    def id(cls) -> int:
-        raise NotImplementedError
-
-    @property
-    def energy(self) -> float:
-        return self._energy
-
-    @property
-    def velocity(self) -> np.ndarray[np.float32]:
-        return self._velocity
-
-    @abstractmethod
-    def evolute(self, row: int, col: int) -> list[tuple[int, int, BaseElement]]:
-        raise NotImplementedError
-
     def to_string(self, colorcode: str | None = None):
         if colorcode is None:
-            return str(self.id)
+            return self.__class__.__name__[0]
 
         return colored("●", colorcode)
+
+    @property
+    @abstractmethod
+    def power(self) -> float:
+        raise NotImplementedError
+
+    @abstractmethod
+    def propose_state(
+        self, neighbors: np.ndarray[BaseElement | None]
+    ) -> np.ndarray[BaseElement | None]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def merge(self, element: BaseElement):
+        raise NotImplementedError
+
+    def __repr__(self) -> str:
+        return self.__class__.__name__[:5]
