@@ -104,5 +104,5 @@ class PygameClass:
         return grid
 
 
-game = PygameClass((800, 600), (800 // 16, 600 // 16))
+game = PygameClass((800, 600), (800 // 8, 600 // 8))
 game.run()
