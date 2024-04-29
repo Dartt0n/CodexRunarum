@@ -33,7 +33,9 @@ class Water(BaseElement):
         this = (1, 1)
 
         propose = np.full_like(neighbors, None)
-        propose[this] = self
+
+        if self._volume > 0:
+            propose[this] = self
 
         if self._momentum > 0 and len(self._path) > 0:
             move, self._path = self._path[0], self._path[1:]

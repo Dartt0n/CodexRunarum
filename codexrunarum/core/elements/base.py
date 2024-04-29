@@ -36,6 +36,10 @@ class BaseElement(ABC):
 
         return colored("●", colorcode)
 
+    @abstractmethod
+    def damage(self, amount: float):
+        raise NotImplementedError
+
     @property
     @abstractmethod
     def power(self) -> float:

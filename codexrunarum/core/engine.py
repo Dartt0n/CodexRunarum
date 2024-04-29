@@ -4,7 +4,7 @@ from statistics import mean
 import numpy as np
 from icecream import ic
 
-from codexrunarum.core.elements import BaseElement
+from codexrunarum.core.elements import BaseElement, Fire, Stone, Tree, Water
 
 
 class Engine:
@@ -134,11 +134,22 @@ class Engine:
         if len(elements) == 1:
             return next(iter(elements.values()))
 
-        # if stone in elemenets and fire/water in elements, stone damaged by fire/water
-        # and they reduce their power
-        # if tree in elements and water in elements, tree consumes water
-        # if tree in elements and fire in elements, fire consumes tree
-        # if fire in elements and water in elements, they substracted
-        # winning element is left
+        if Stone.id in elements:
+            if Water.id in elements:
+                elements[Stone.id].damage(elements[Water.id].power)
+
+            if Fire.id in elements:
+                elements[Stone.id].damage(elements[Fire.id].power)
+
+        if Water.id in elements and Fire.id in elements:
+            diff = elements[Water.id].power - elements[Fire.id].power
+
+            if diff > 0:
+                elements[Water.id].damage(diff)
+            else:
+                elements[Fire.id].damage(-diff)
+
+        if Tree.id in elements and Water.id in elements:
+            elements[Water.id].damage(elements[Tree.id].power / 10)
 
         return max(elements.values(), key=lambda x: x.power)
