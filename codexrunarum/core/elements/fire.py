@@ -69,7 +69,7 @@ class Fire(BaseElement):
                 propose[step].merge(self)
                 break
 
-        if np.random.random() < self._temperature:
+        if np.random.random() < (np.tanh(self._temperature / 10 + 1) + 1) / 2:
             flame_spread = random.choice(self.__flame_direction(dr, dc))
             flame_coord = tuple(move + flame_spread)
             new_element = Fire(
@@ -84,12 +84,13 @@ class Fire(BaseElement):
 
     def merge(self, element: Fire):
         self._temperature += element._temperature
+        self._temperature = max(self._temperature, 10)
 
     def __flame_direction(self, dr, dc):
         if dr == 0 and dc != 0:
             return [(-1, 0), (1, 0), (-1, dc), (0, dc), (1, dc)]
 
-        if dc == 0 and dr == 0:
+        if dc == 0 and dr != 0:
             return [(0, -1), (0, 1), (dr, -1), (dr, 0), (dr, 1)]
 
         if dr != 0 and dc != 0:

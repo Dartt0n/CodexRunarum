@@ -4,7 +4,7 @@ from statistics import mean
 import numpy as np
 from icecream import ic
 
-from .elements import BaseElement
+from codexrunarum.core.elements import BaseElement
 
 
 class Engine:
@@ -20,24 +20,12 @@ class Engine:
         self._rows = rows
 
         self._grid = np.full((rows, cols), None, dtype=object)
-        self._freezed = np.zeros_like(self._grid, dtype=bool)
-        self._n_unchanged = np.zeros_like(self._grid, dtype=np.uint64)
 
     def spawn_element_at(self, row: int, col: int, element: BaseElement):
-        rs, re, cs, ce = self._shrink_valid(row - 1, row + 2, col - 1, col + 2)
-        self._freezed[rs:re, cs:ce] = False
-        self._n_unchanged[rs:re, cs:ce] = 0
-
         self._grid[row, col] = element
 
     def spawn_pattern(self, row: int, col: int, pattern: np.ndarray[BaseElement]):
         prows, pcols = pattern.shape[:2]
-
-        rs, re, cs, ce = self._shrink_valid(
-            row - 1, row + prows + 2, col - 1, col + pcols + 2
-        )
-        self._freezed[rs:re, cs:ce] = False
-        self._n_unchanged[rs:re, cs:ce] = 0
 
         self._grid[row : row + prows, col : col + pcols] = pattern
 
@@ -66,23 +54,12 @@ class Engine:
         candidates = [[[] for c in range(self._cols)] for r in range(self._rows)]
 
         for row, col in self._itergrid():
-            if self._freezed[row, col] or self._grid[row, col] is None:
+            if self._grid[row, col] is None:
                 continue
 
             current_element: BaseElement = self._grid[row, col]
             current_local_state = self._get_neighbors(row, col)
             next_local_state = current_element.propose_state(current_local_state)
-
-            if (current_local_state == next_local_state).all():
-                rs, re, cs, ce = self._shrink_valid(row - 1, row + 2, col - 1, col + 2)
-                self._n_unchanged[rs:re, cs:ce] += 1
-                self._freezed[rs:re, cs:ce] += self._n_unchanged[rs:re, cs:ce] >= 2
-                continue
-
-            for r, c in self._itermesh(0, 3, 0, 3):
-                if current_local_state[r, c] != next_local_state[r, c]:
-                    self._n_unchanged[r, c] = 0
-                    self._freezed[r, c] = False
 
             for r, c in self._itergrid(0, 3, 0, 3):
                 prop_row = r + row - 1

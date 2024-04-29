@@ -3,16 +3,20 @@ import time
 
 import numpy as np
 
-from .core.elements import Fire, Stone
-from .core.engine import Engine
+from codexrunarum.core.elements import Fire, Stone, Water
+from codexrunarum.core.engine import Engine
 
 stone_tube = np.array(
     [
-        [Stone(500), Stone(500), Stone(500), Stone(500), None, None],
-        [Stone(500), None, None, Stone(500), None, None],
-        [None, None, None, None, None, None],
-        [Stone(500), None, None, Stone(500), None, None],
-        [Stone(500), Stone(500), Stone(500), Stone(500), None, None],
+        [Stone(5), Stone(5), Stone(5), Stone(5)],
+        [Stone(5), None, None, None],
+        [Stone(5), None, Stone(5), Stone(5)],
+        [Stone(5), None, Stone(5), None],
+        [Stone(5), None, Stone(5), None],
+        [Stone(5), None, Stone(5), None],
+        [Stone(5), None, Stone(5), None],
+        [None, None, Stone(5), None],
+        [Stone(5), Stone(5), Stone(5), None],
     ]
 )
 
@@ -22,21 +26,22 @@ if __name__ == "__main__":
     start_time = time.time()
     iters = 0
 
-    engine.spawn_pattern(5, 0, stone_tube)
+    # engine.spawn_pattern(1, 2, stone_tube)
+    engine.spawn_element_at(7, 0, Water(10, np.array((0, 1)), 10))
+    engine.spawn_element_at(7, 35, Fire(1.0, np.array((0.0, -100.0))))
     while True:
-        engine.spawn_element_at(7, 0, Fire(1.0, np.array((0.0, 100.0))))
-        engine.spawn_element_at(7, 44, Fire(1.0, np.array((0.0, -100.0))))
         os.system("clear")
         engine.print_state(
-            {Fire.id: "red", Stone.id: "white"},
+            {Fire.id: "red", Stone.id: "white", Water.id: "blue"},
             spacing="",
         )
         engine.evolute()
-
-        time.sleep(1 / 15)
 
         iters += 1
         elapsed_time = time.time() - start_time
         if elapsed_time > 0:
             ips = iters / elapsed_time
             print("fps =", ips)
+
+        # time.sleep(1 / 15)
+        input()

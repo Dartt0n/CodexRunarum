@@ -16,6 +16,10 @@ class BaseElement(ABC):
         delta = movement_vector - current_point
 
         n = int(np.max(np.abs(delta)))
+
+        if n == 0:
+            return path
+
         dt = n
         dxdt = delta[1] / dt
         dydt = delta[0] / dt

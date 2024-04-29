@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from .base import BaseElement
+from codexrunarum.core.elements.base import BaseElement
 
 
 class Stone(BaseElement):
