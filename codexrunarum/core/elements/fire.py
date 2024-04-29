@@ -6,6 +6,7 @@ import numpy as np
 from icecream import ic
 
 from .base import BaseElement
+from .tree import Tree
 
 
 class Fire(BaseElement):
@@ -23,6 +24,9 @@ class Fire(BaseElement):
     def power(self) -> float:
         return self._temperature
 
+    def damage(self, amount: float):
+        self._temperature -= amount
+
     def propose_state(self, neighbors: np.ndarray[None]) -> np.ndarray[None]:
         this = (1, 1)
 
@@ -38,6 +42,11 @@ class Fire(BaseElement):
         move, self._path = self._path[0], self._path[1:]
         self._direction -= move
         step = tuple(move + this)
+
+        for r in range(3):
+            for c in range(3):
+                if isinstance(neighbors[r, c], Tree):
+                    propose[r, c] = Fire(1, self._direction)
 
         dr = move[0]
         dc = move[1]

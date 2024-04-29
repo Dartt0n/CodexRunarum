@@ -11,6 +11,9 @@ class Stone(BaseElement):
     def __init__(self, hardness: float):
         self._hardness = hardness
 
+    def damage(self, amount: float):
+        self._hardness -= amount
+
     @property
     def power(self) -> float:
         return self._hardness
@@ -20,7 +23,8 @@ class Stone(BaseElement):
     ) -> np.ndarray[BaseElement | None]:
         # stone is smart, stone doesnt move, doesnt evolve, doesnt degrate, be like stone
         propose = np.full_like(neighbors, None)
-        propose[1, 1] = self
+        if self._hardness > 0:
+            propose[1, 1] = self
         return propose
 
     def merge(self, element: Stone):

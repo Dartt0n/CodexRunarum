@@ -9,7 +9,7 @@ from codexrunarum.core.elements.base import BaseElement
 
 
 class Water(BaseElement):
-    id = 3
+    id = 4
 
     def __init__(self, volume: float, direction: np.ndarray[float], momentum: float):
         self._volume = volume
@@ -23,6 +23,9 @@ class Water(BaseElement):
     @property
     def power(self) -> float:
         return self._volume * (0.1 + self._momentum)
+
+    def damage(self, amount: float):
+        self._volume -= amount
 
     def propose_state(
         self, neighbors: np.ndarray[BaseElement | None]
