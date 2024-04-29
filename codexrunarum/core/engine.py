@@ -74,6 +74,12 @@ class Engine:
         self._state_idx += 1
         self._grid = next_state
 
+    def grid_ids(self) -> np.ndarray:
+        ids = np.zeros((self._rows * self._cols,), dtype=np.uint8)
+        for i, element in enumerate(self._grid.flatten()):
+            ids[i] = element.id if element else 0
+        return ids.reshape(self._grid.shape)
+
     def _shrink_valid(
         self, minr: int, maxr: int, minc: int, maxc: int
     ) -> tuple[int, int, int, int]:

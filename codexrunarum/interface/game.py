@@ -15,28 +15,33 @@ game_over = False
 preparation_bar_color = pygame.Color("gray")
 spell_frame_color = (255, 255, 255, 255)
 spell_inside_color = (0, 0, 0, 255)
-font1 = pygame.font.Font('arialmt.ttf', 20)
+font1 = pygame.font.Font("arialmt.ttf", 20)
 
 
 class Button:
 
     def __init__(self, x, y, w, h):
-        self.colors_of_elements = [(255, 255, 255, 255), (255, 0, 0, 255), (0, 0, 255, 255), (0, 255, 0, 255)]
+        self.colors_of_elements = [
+            (255, 255, 255, 255),
+            (255, 0, 0, 255),
+            (0, 0, 255, 255),
+            (0, 255, 0, 255),
+        ]
         self.color_index = 0
         self.color = self.colors_of_elements[0]
         self.rect = pygame.Rect(x, y, w, h)
 
     def color_check(self, x, y):
         if self.rect.collidepoint(x, y):
-            self.color_index = (self.colors_of_elements.index(self.color) +
-                                                  1) % len(self.colors_of_elements)
+            self.color_index = (self.colors_of_elements.index(self.color) + 1) % len(
+                self.colors_of_elements
+            )
             self.color = self.colors_of_elements[self.color_index]
             return True
         return False
 
 
 class Cell(Button):
-
 
     def __init__(self, x, y, w, h):
         super().__init__(x, y, w, h)
@@ -52,10 +57,13 @@ class Cell(Button):
 buttons = tuple(Button(50, 560 + 40 * i, 20, 20) for i in range(5))
 
 preparation_bar_rect = pygame.Rect(0, 550, 900, 200)
-spell_out = (pygame.Rect(100, 570, 160, 160),
-             pygame.Rect(260, 570, 160, 160),
-             pygame.Rect(420, 570, 160, 160),
-             pygame.Rect(580, 570, 160, 160), pygame.Rect(740, 570, 160, 160))
+spell_out = (
+    pygame.Rect(100, 570, 160, 160),
+    pygame.Rect(260, 570, 160, 160),
+    pygame.Rect(420, 570, 160, 160),
+    pygame.Rect(580, 570, 160, 160),
+    pygame.Rect(740, 570, 160, 160),
+)
 spell_fields = [[] for i in range(5)]
 for i in range(105, 206, 50):
     for j in range(575, 676, 50):
@@ -137,7 +145,7 @@ while not game_over:
             pygame.draw.rect(screen, j.color, j.rect)
     all_sprites.draw(screen)
     for i in range(1, 6):
-        screen.blit(font1.render(f'{i}', True, "white"), (5, 560 + 40 * (i - 1)))
+        screen.blit(font1.render(f"{i}", True, "white"), (5, 560 + 40 * (i - 1)))
     for i in buttons:
         pygame.draw.rect(screen, i.color, i.rect)
     pygame.display.update()

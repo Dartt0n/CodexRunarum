@@ -40,6 +40,7 @@ class Fire(BaseElement):
             return propose
 
         move, self._path = self._path[0], self._path[1:]
+        move = np.clip(move, -1, 1)
         self._direction -= move
         step = tuple(move + this)
 

@@ -87,6 +87,7 @@ class Water(BaseElement):
         return [(0, 0)]
 
     def __flow(self, neighbors, propose, move, this):
+        move = np.clip(move, -1, 1)
         step = tuple(move + this)
         dr = move[0]
         dc = move[1]
