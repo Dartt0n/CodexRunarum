@@ -3,7 +3,6 @@ from __future__ import annotations
 import random
 
 import numpy as np
-from icecream import ic
 
 from .base import BaseElement
 from .water import Water

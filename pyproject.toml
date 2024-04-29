@@ -12,6 +12,7 @@ arcade = "^2.6.17"
 numpy = "^1.26.4"
 icecream = "^2.1.3"
 termcolor = "^2.4.0"
+pygame = "^2.5.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.3.0"
