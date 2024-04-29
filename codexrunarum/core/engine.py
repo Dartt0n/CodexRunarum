@@ -2,7 +2,6 @@ from itertools import product
 from statistics import mean
 
 import numpy as np
-from icecream import ic
 
 from codexrunarum.core.elements import BaseElement, Fire, Stone, Tree, Water
 

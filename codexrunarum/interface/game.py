@@ -1,4 +1,5 @@
 import sys
+
 import pygame
 
 pygame.font.init()
@@ -80,7 +81,7 @@ for i in range(585, 686, 50):
 for i in range(745, 846, 50):
     for j in range(575, 676, 50):
         spell_fields[4].append(Cell(i, j, 50, 50))
-color_buttons = list()
+color_buttons = []
 for i in range(5):
     color_buttons.append(pygame.Rect(50, 560 + 40 * i, 20, 20))
 
