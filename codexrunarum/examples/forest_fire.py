@@ -38,5 +38,5 @@ class ForestFire(DemoBase):
         return grid
 
 
-game = ForestFire((800, 600), (800 // 16, 600 // 16))
+game = ForestFire((1920, 1080), (160, 90))
 game.run()

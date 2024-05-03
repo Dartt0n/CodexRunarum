@@ -69,5 +69,5 @@ class Flood(DemoBase):
         return grid
 
 
-game = Flood((800, 600), (800 // 16, 600 // 16))
+game = Flood((1920, 1080), (160, 90))
 game.run()

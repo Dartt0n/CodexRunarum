@@ -10,13 +10,15 @@ class Fire(DemoBase):
         self.engine = Engine(self.grid_cols, self.grid_rows)
 
         self.engine.spawn_element_at(
-            self.grid_rows // 2, 0, elements.Fire(4, np.array((0, 50)))
+            self.grid_rows // 2,
+            self.grid_cols // 2,
+            elements.Fire(4, np.array((0, 50))),
         )
 
         self.engine_calls = 0
 
     def engine_call(self):
-        if self.engine_calls % 200 == 0:
+        if self.engine_calls % 20 == 0:
             self.engine_init()
         self.engine_calls += 1
 
@@ -25,5 +27,5 @@ class Fire(DemoBase):
         return grid
 
 
-game = Fire((800, 600), (800 // 16, 600 // 16))
+game = Fire((1920, 1080), (160, 90))
 game.run()

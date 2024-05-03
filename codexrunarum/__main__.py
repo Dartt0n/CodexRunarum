@@ -21,8 +21,8 @@ stone_tube = np.array(
 )
 
 if __name__ == "__main__":
-    GRID_ROWS = 45
-    GIRD_COLS = 150
+    GRID_ROWS = 90
+    GIRD_COLS = 160
 
     engine = Engine(GRID_ROWS, GIRD_COLS)
 
@@ -46,11 +46,11 @@ if __name__ == "__main__":
             engine.spawn_element_at(
                 GRID_ROWS // 2, GIRD_COLS - 1, Fire(1, np.array((0, -GIRD_COLS // 2)))
             )
-            os.system("clear")
-            engine.print_state(
-                {Fire.id: "red", Stone.id: "white", Water.id: "blue", Tree.id: "green"},
-                spacing="",
-            )
+            # os.system("clear")
+            # engine.print_state(
+            #     {Fire.id: "red", Stone.id: "white", Water.id: "blue", Tree.id: "green"},
+            #     spacing="",
+            # )
             engine.evolute()
 
             iters += 1

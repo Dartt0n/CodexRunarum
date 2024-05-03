@@ -37,5 +37,5 @@ class Tree(DemoBase):
         return grid
 
 
-game = Tree((800, 600), (800 // 16, 600 // 16), 5)
+game = Tree((1920, 1080), (160, 90))
 game.run()

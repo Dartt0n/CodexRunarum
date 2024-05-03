@@ -63,5 +63,5 @@ class StoneFall(DemoBase):
         return grid
 
 
-game = StoneFall((800, 600), (800 // 16, 600 // 16))
+game = StoneFall((1920, 1080), (160, 90))
 game.run()

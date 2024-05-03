@@ -57,5 +57,5 @@ class Chaos(DemoBase):
         return grid
 
 
-game = Chaos((800, 600), (800 // 8, 600 // 8))
+game = Chaos((1920, 1080), (160, 90))
 game.run()

@@ -23,6 +23,9 @@ class DemoBase(ABC):
         self.cell_size = screen_size[0] // grid_size[0], screen_size[1] // grid_size[1]
         self.engine_init()
 
+        self.screen.fill((0, 0, 0))
+        pygame.display.flip()
+
     def get_color(self, id):
         COLOR_MAP = {
             0: [(0, 0, 0)],

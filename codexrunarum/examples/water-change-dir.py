@@ -10,7 +10,7 @@ class WaterChangeDir(DemoBase):
         self.engine = Engine(self.grid_rows, self.grid_cols)
 
         self.engine.spawn_element_at(
-            self.grid_rows // 2, 0, elements.Water(4, np.array((0, 1)), 10.0)
+            self.grid_rows // 2, 0, elements.Water(5, np.array((0, 1)), 10.0)
         )
 
         self.engine.spawn_element_at(self.grid_rows // 2, 5, elements.Stone(10))
@@ -18,7 +18,7 @@ class WaterChangeDir(DemoBase):
         self.engine_calls = 0
 
     def engine_call(self):
-        if self.engine_calls % 200 == 0:
+        if self.engine_calls % 25 == 0:
             self.engine_init()
         self.engine_calls += 1
 
@@ -27,5 +27,5 @@ class WaterChangeDir(DemoBase):
         return grid
 
 
-game = WaterChangeDir((800, 600), (800 // 16, 600 // 16))
+game = WaterChangeDir((1920, 1080), (160, 90), 15)
 game.run()

@@ -39,5 +39,5 @@ class FireClock(DemoBase):
         return grid
 
 
-game = FireClock((800, 600), (800 // 16, 600 // 16))
+game = FireClock((1920, 1080), (160, 90))
 game.run()
