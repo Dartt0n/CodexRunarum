@@ -1,68 +1,29 @@
-import time
-
 import numpy as np
-import pygame
 
 from codexrunarum.core import elements
 from codexrunarum.core.engine import Engine
+from codexrunarum.examples.base import DemoBase
 
 
-class PygameClass:
-    def __init__(self, screen_size, grid_size):
-        pygame.init()
-        self.grid_rows, self.grid_cols = grid_size
-        self.screen = pygame.display.set_mode(screen_size)
-        self.clock = pygame.time.Clock()
-
-        self.colors = {
-            0: (0, 0, 0),
-            elements.Fire.id: (255, 0, 0),
-            elements.Stone.id: (128, 128, 128),
-            elements.Tree.id: (0, 255, 0),
-            elements.Water.id: (0, 0, 255),
-        }
-        self.cell_size = screen_size[0] // grid_size[0], screen_size[1] // grid_size[1]
-        self.engine_init()
-
-    def draw_grid(self, grid):
-        for i in range(grid.shape[0]):
-            for j in range(grid.shape[1]):
-                pygame.draw.rect(
-                    self.screen,
-                    self.colors[grid[i, j]],
-                    (
-                        i * self.cell_size[0],
-                        j * self.cell_size[1],
-                        self.cell_size[0],
-                        self.cell_size[1],
-                    ),
-                )
-
-    def run(self):
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    return
-
-            self.screen.fill((0, 0, 0))
-
-            grid = self.engine_call()
-            self.draw_grid(grid)
-
-            pygame.display.flip()
-            self.clock.tick(1)
+class Tree(DemoBase):
 
     def engine_init(self):
         self.engine = Engine(self.grid_rows, self.grid_cols)
 
-        self.engine.spawn_element_at(
-            self.grid_rows // 2, 0, elements.Water(0.1, np.array((0, 0)), 0.0)
-        )
+        offset = self.grid_cols // 8
 
-        self.engine.spawn_element_at(
-            self.grid_rows // 2, 1, elements.Tree(3, np.array((0, 1), None))
-        )
+        for i in range(5):
+            self.engine.spawn_element_at(
+                self.grid_rows // 4 * 3 - 1,
+                offset + (self.grid_cols - offset) // 5 * i,
+                elements.Water(2, np.array((0, 0)), 0.0),
+            )
+
+            self.engine.spawn_element_at(
+                self.grid_rows // 4 * 3 - 2,
+                offset + (self.grid_cols - offset) // 5 * i,
+                elements.Tree(3, np.array((-1, 0), None)),
+            )
 
         self.engine_calls = 0
 
@@ -76,5 +37,5 @@ class PygameClass:
         return grid
 
 
-game = PygameClass((800, 600), (800 // 16, 600 // 16))
+game = Tree((1920, 1080), (80, 45))
 game.run()
