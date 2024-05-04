@@ -1,6 +1,8 @@
 import random
 from abc import ABC, abstractmethod
+from itertools import cycle
 
+import numpy as np
 import pygame
 
 from codexrunarum.core import elements
@@ -16,7 +18,7 @@ class DemoBase(ABC):
     ):
         pygame.init()
         self.grid_cols, self.grid_rows = grid_size
-        self.screen = pygame.display.set_mode(screen_size)
+        self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN)
         self.clock = pygame.time.Clock()
         self.fps = fps
 
@@ -99,6 +101,10 @@ class DemoBase(ABC):
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
                     pygame.quit()
                     return
 

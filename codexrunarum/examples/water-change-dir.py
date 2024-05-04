@@ -27,5 +27,5 @@ class WaterChangeDir(DemoBase):
         return grid
 
 
-game = WaterChangeDir((1920, 1080), (160, 90), 15)
+game = WaterChangeDir((1920, 1080), (80, 45), 15)
 game.run()

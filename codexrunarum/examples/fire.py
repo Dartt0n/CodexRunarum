@@ -27,5 +27,5 @@ class Fire(DemoBase):
         return grid
 
 
-game = Fire((1920, 1080), (160, 90))
+game = Fire((1920, 1080), (80, 45))
 game.run()

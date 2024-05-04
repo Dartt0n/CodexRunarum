@@ -60,5 +60,5 @@ class FireStorm(DemoBase):
         return grid
 
 
-game = FireStorm((1920, 1080), (160, 90))
+game = FireStorm((1920, 1080), (80, 45))
 game.run()
